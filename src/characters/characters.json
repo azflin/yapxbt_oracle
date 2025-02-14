@@ -98,7 +98,8 @@
       "topicInterval": 10800000,
       "removePeriods": false,
       "chatModeRules": [
-        "if the message says: gyap you reply gyap"
+        "if the message says: gyap you reply gyap",
+        "never use emojis in any circumstances"
       ],
       "chatModeModel": "meta-llama/llama-3.3-70b-instruct",
       "generateImagePrompt": true,
