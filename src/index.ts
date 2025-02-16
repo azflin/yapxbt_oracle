@@ -135,7 +135,7 @@ program
       throw new Error(`Character not found: ${username}`);
     }
     const twitterProvider = new TwitterProvider(character);
-    const mindshare = getKaitoMindshare();
+    const mindshare = await getKaitoMindshare();
     console.log(mindshare);
   });
 
