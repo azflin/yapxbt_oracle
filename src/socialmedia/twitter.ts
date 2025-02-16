@@ -21,6 +21,7 @@ import {
   getUserInteractionCount,
   TwitterHistory,
 } from "../database/tweets";
+import { getKaitoMindshare } from "./kaito";
 
 interface Mention {
   id: string;
@@ -153,6 +154,15 @@ export class TwitterProvider {
       lowerBound,
       upperBound,
     );
+  }
+
+  public async generateKaitoPost() {
+    const topYappers: any = await getKaitoMindshare();
+    console.log('Top KAITO Mindshare Yappers (7d)')
+    for (let i = 0; i < 5; i++) {
+      const yapper = topYappers[i];
+      console.log(`${yapper.rank}. ${yapper.name} (@${yapper.username}): ${(yapper.mindshare * 100).toFixed(1) + '%'}`);
+    }
   }
 
   private async generateTimelinePost() {

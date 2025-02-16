@@ -135,12 +135,7 @@ program
       throw new Error(`Character not found: ${username}`);
     }
     const twitterProvider = new TwitterProvider(character);
-    const topYappers: any = await getKaitoMindshare();
-    console.log('Top KAITO Mindshare Yappers (7d)')
-    for (let i = 0; i < 5; i++) {
-      const yapper = topYappers[i];
-      console.log(`${yapper.rank}. ${yapper.name} (@${yapper.username}): ${(yapper.mindshare * 100).toFixed(1) + '%'}`);
-    }
+    await twitterProvider.generateKaitoPost();
   });
 
 program.parse();
