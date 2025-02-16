@@ -10,6 +10,7 @@ import { CliProvider } from "./socialmedia/cli";
 import { DiscordProvider } from "./socialmedia/discord";
 import { TelegramProvider } from "./socialmedia/telegram";
 import { TwitterProvider } from "./socialmedia/twitter";
+import { getKaitoMindshare } from "./socialmedia/kaito";
 
 const program = new Command();
 
@@ -122,6 +123,20 @@ program
     const twitterProvider = new TwitterProvider(character);
     await twitterProvider.initWithCookies();
     await twitterProvider.startReplyingToMentions();
+  });
+
+program
+  .command("generateKaitoPost")
+  .description("generate kaito post")
+  .argument("<username>", "Username of the agent")
+  .action(async username => {
+    const character = CHARACTERS.find(x => x.username === username);
+    if (!character) {
+      throw new Error(`Character not found: ${username}`);
+    }
+    const twitterProvider = new TwitterProvider(character);
+    const mindshare = getKaitoMindshare();
+    console.log(mindshare);
   });
 
 program.parse();
