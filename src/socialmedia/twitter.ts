@@ -163,6 +163,19 @@ export class TwitterProvider {
       const yapper = topYappers[i];
       console.log(`${yapper.rank}. ${yapper.name} (@${yapper.username}): ${(yapper.mindshare * 100).toFixed(1) + '%'}`);
     }
+
+    // const tweets = this.scraper.getTweets(topYappers[0].username, 5); // Replace 'username' with the actual username
+    // const lastFivePosts = await this.scraper.getTweetsWhere(tweets, tweet => !tweet.isReply);
+    // console.log(lastFivePosts);
+
+    const query = `from:${topYappers[1].username} -filter:replies -filter:retweets`;
+    console.log({query});
+    const tweets = this.scraper.searchTweets(query, 5, SearchMode.Latest);
+    const results = [];
+    for await (const tweet of tweets) {
+      results.push(tweet);
+    }
+    console.log(results);
   }
 
   private async generateTimelinePost() {
