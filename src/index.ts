@@ -135,6 +135,7 @@ program
       throw new Error(`Character not found: ${username}`);
     }
     const twitterProvider = new TwitterProvider(character);
+    await twitterProvider.initWithCookies();
     await twitterProvider.generateKaitoPost();
   });
 
