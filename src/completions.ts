@@ -305,6 +305,13 @@ export const generateTopicPost = async (
   return { prompt, reply };
 };
 
+export const generateSummaryForKaito = async (
+  character: Character,
+  inputTweets: string
+)=> {
+
+}
+
 const checkIfPromptWasBanned = async (reply: string, character: Character) => {
   const context = {
     agentName: character.agentName,

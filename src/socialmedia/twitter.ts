@@ -4,9 +4,9 @@ import { Scraper, SearchMode } from "goat-x";
 import { Character } from "../characters";
 import {
   generateImagePromptForCharacter,
-  generateReply,
+  generateReply, generateSummaryForKaito,
   generateTopicPost,
-  handleBannedAndLengthRetries,
+  handleBannedAndLengthRetries
 } from "../completions";
 import { saveTweet as saveTweet, getTweetByInputTweetId } from "../database";
 import { generateImageForTweet } from "../images";
@@ -168,7 +168,7 @@ export class TwitterProvider {
       for await (const tweet of tweets) {
         results.push(tweet.text);
       }
-      console.log(results);
+      const summary = await generateSummaryForKaito(this.character, results.join("\n"));
     }
 
     // const tweets = this.scraper.getTweets(topYappers[0].username, 5); // Replace 'username' with the actual username
