@@ -175,7 +175,13 @@ export class TwitterProvider {
         summary
       });
     }
-    console.log({firstTweet, nextTweets});
+    // console.log({firstTweet, nextTweets});
+    console.log(firstTweet);
+    for (const tweet of nextTweets) {
+      console.log(tweet.yapper);
+      console.log(tweet.summary);
+      console.log('\n');
+    }
   }
 
   private async generateTimelinePost() {
