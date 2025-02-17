@@ -331,7 +331,7 @@ export const generateSummaryForKaito = async (
   `;
   kaitoPrompt = replaceTemplateVariables(kaitoPrompt, context);
   const completion = await generateCompletionForCharacter(kaitoPrompt, character, false, inputTweets);
-  console.log(completion);
+  return completion;
 }
 
 const checkIfPromptWasBanned = async (reply: string, character: Character) => {

@@ -158,10 +158,11 @@ export class TwitterProvider {
 
   public async generateKaitoPost() {
     const topYappers: any = await getKaitoMindshare();
-    console.log('Top KAITO Mindshare Yappers (7d)')
+    let firstTweet = 'Top KAITO Mindshare Yappers (7d)\n';
+    let nextTweets = [];
     for (let i = 0; i < 5; i++) {
       const yapper = topYappers[i];
-      console.log(`${yapper.rank}. ${yapper.name} (@${yapper.username}): ${(yapper.mindshare * 100).toFixed(1) + '%'}`);
+      firstTweet += `${yapper.rank}. ${yapper.name} (@${yapper.username}): ${(yapper.mindshare * 100).toFixed(1) + '%'}\n`;
       const query = `from:${topYappers[i].username} -filter:replies -filter:retweets`;
       const tweets = this.scraper.searchTweets(query, 5, SearchMode.Latest);
       const results = [];
@@ -169,11 +170,12 @@ export class TwitterProvider {
         results.push(tweet.text);
       }
       const summary = await generateSummaryForKaito(this.character, results.join("\n"));
+      nextTweets.push({
+        yapper: yapper.name,
+        summary
+      });
     }
-
-    // const tweets = this.scraper.getTweets(topYappers[0].username, 5); // Replace 'username' with the actual username
-    // const lastFivePosts = await this.scraper.getTweetsWhere(tweets, tweet => !tweet.isReply);
-    // console.log(lastFivePosts);
+    console.log({firstTweet, nextTweets});
   }
 
   private async generateTimelinePost() {
