@@ -10,7 +10,6 @@ import { CliProvider } from "./socialmedia/cli";
 import { DiscordProvider } from "./socialmedia/discord";
 import { TelegramProvider } from "./socialmedia/telegram";
 import { TwitterProvider } from "./socialmedia/twitter";
-import { getKaitoMindshare } from "./socialmedia/kaito";
 
 const program = new Command();
 

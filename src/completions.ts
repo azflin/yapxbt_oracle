@@ -299,7 +299,39 @@ export const generateSummaryForKaito = async (
   character: Character,
   inputTweets: string
 )=> {
-
+  const context = {
+    agentName: character.agentName,
+    username: character.username,
+    bio: character.bio.join("\n"),
+    lore: character.lore.join("\n"),
+    postDirections: character.postDirections.join("\n"),
+    knowledge: character.knowledge?.join("\n") || "",
+    chatModeRules: character.postingBehavior.chatModeRules?.join("\n") || "",
+  };
+  let kaitoPrompt = `
+    About {{agentName}} (@{{username}}):
+    
+    # Character's bio:
+    {{bio}}
+    
+    # Character's lore:
+    {{lore}}
+    
+    # Documentation About Kaito
+    {{knowledge}}
+    
+    # Character's post directions:
+    {{postDirections}}
+    
+    # Task: Generate a brief summary in the voice and style of {{agentName}}, aka @{{username}}
+    You will be given 5 recent tweets from one of Kaito's top yappers. Summarize these tweets, and focus on any mention of kaito or yaps. Do not add commentary or ackwowledge this request, just write the post. 240 characters maximum response. Use \\n\\n (double spaces) between statements.
+    
+    # rules
+    {{chatModeRules}}
+  `;
+  kaitoPrompt = replaceTemplateVariables(kaitoPrompt, context);
+  const completion = await generateCompletionForCharacter(kaitoPrompt, character, false, inputTweets);
+  console.log(completion);
 }
 
 const checkIfPromptWasBanned = async (reply: string, character: Character) => {
